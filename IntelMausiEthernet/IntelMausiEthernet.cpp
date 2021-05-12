@@ -191,6 +191,7 @@ bool IntelMausi::init(OSDictionary *properties)
         adapterData.pdev = &pciDeviceData;
         mtu = ETH_DATA_LEN;
         isRssSet = false;
+        enableWakeS5 = false;
         wolCapable = false;
         wolActive = false;
         enableCSO6 = false;
@@ -437,6 +438,13 @@ void IntelMausi::systemWillShutdown(IOOptionBits specifier)
     DebugLog("[IntelMausi]: systemWillShutdown() ===>\n");
 
     if ((kIOMessageSystemWillPowerOff | kIOMessageSystemWillRestart) & specifier) {
+        /*
+         * Enable WoL if the machine is going to power off and WoL from S5
+         * is enabled.
+         */
+        if (enableWakeS5 && (kIOMessageSystemWillPowerOff & specifier)) {
+            wolActive = true;
+        }
         disable(netif);
 
         /* Restore the original MAC address. */

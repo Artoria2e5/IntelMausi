@@ -1,5 +1,7 @@
 IntelMausi Changelog
 ====================
+- Merged changes from 2.5.3d3 (support for WoL from S5)
+
 #### v1.0.7
 - Added force WOL support (`mausi-force-wol` device property or `-mausiwol` boot argument)
 
@@ -45,4 +47,4 @@ IntelMausi Changelog
 - Fixed loading on 10.9
 
 #### v1.0.0
-- Initial release
+- Initial release forked from 2.5.0d0
